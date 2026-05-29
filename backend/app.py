@@ -4,25 +4,26 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import os
 
-# Load Environment Variables
+# Load environment variables
 load_dotenv()
+
+# Initialize Flask app
+app = Flask(__name__)
+CORS(app)
 
 # Configure Gemini API
 genai.configure(
     api_key=os.getenv("GEMINI_API_KEY")
 )
 
-# Initialize Flask App
-app = Flask(__name__)
-CORS(app)
+# ✅ FIXED MODEL (IMPORTANT)
+model = genai.GenerativeModel("gemini-1.5-flash")
 
-# Gemini Model
-model = genai.GenerativeModel("gemini-2.0-flash")
 
-# Home Route
+# Home route (Render health check)
 @app.route("/")
 def home():
-    return "CareerCraft AI Backend Running"
+    return "CareerCraft AI Backend Running 🚀"
 
 
 # Generate AI Resume Summary
@@ -30,43 +31,46 @@ def home():
 def generate_summary():
 
     try:
-
         data = request.get_json()
 
         skills = data.get("skills", "")
         projects = data.get("projects", "")
 
+        # Input validation
+        if not skills:
+            return jsonify({"error": "Skills are required"}), 400
+
+        # Prompt
         prompt = f"""
-        Create a professional ATS-friendly resume summary
-        for a software engineering student.
+Create a professional ATS-friendly resume summary
+for a software engineering student.
 
-        Skills:
-        {skills}
+Skills:
+{skills}
 
-        Projects:
-        {projects}
+Projects:
+{projects}
 
-        Keep it concise, professional, attractive,
-        and recruiter-friendly.
-        """
+Make it concise, professional, and recruiter-friendly.
+"""
 
-        # Try Gemini AI
         try:
-
             response = model.generate_content(prompt)
 
-            ai_summary = response.text
+            # Safety check
+            ai_summary = response.text if response and response.text else None
 
-        # Fallback Summary If API Fails
+            if not ai_summary:
+                raise Exception("Empty response from Gemini")
+
         except Exception as ai_error:
-
             print("AI ERROR:", ai_error)
 
+            # fallback
             ai_summary = f"""
-Passionate and detail-oriented software engineering student skilled in {skills}.
-Experienced in developing innovative projects including {projects}.
-Strong problem-solving abilities, quick learning mindset, and enthusiasm for
-building modern scalable applications with real-world impact.
+Passionate software engineering student skilled in {skills}.
+Experienced in projects like {projects}.
+Strong problem-solving skills and ability to build scalable applications.
 """
 
         return jsonify({
@@ -74,14 +78,14 @@ building modern scalable applications with real-world impact.
         })
 
     except Exception as e:
-
         print("SERVER ERROR:", e)
 
         return jsonify({
+            "error": "Backend error occurred",
             "summary": "Unable to generate summary currently."
-        })
+        }), 500
 
 
-# Run Flask App
+# Run locally (Render will ignore this)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
