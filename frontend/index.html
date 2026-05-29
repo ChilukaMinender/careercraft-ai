@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerCraft AI</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+</head>
+
+<body>
+
+    <!-- Background Glow -->
+    <div class="bg-glow glow1"></div>
+    <div class="bg-glow glow2"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-file-waveform"></i>
+            CareerCraft AI
+        </div>
+
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- LEFT FORM -->
+        <div class="form-section glass">
+
+            <h2>Create Your Resume</h2>
+
+            <!-- Personal -->
+            <div class="section-title">
+                <i class="fa-solid fa-user"></i>
+                Personal Details
+            </div>
+
+            <input type="text" id="name" placeholder="Full Name">
+
+            <input type="email" id="email" placeholder="Email Address">
+
+            <input type="text" id="phone" placeholder="Phone Number">
+
+            <input type="text" id="linkedin" placeholder="LinkedIn URL">
+
+            <input type="text" id="github" placeholder="GitHub URL">
+
+            <!-- Education -->
+            <div class="section-title">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Education
+            </div>
+
+            <input type="text" id="college" placeholder="College Name">
+
+            <input type="text" id="degree" placeholder="Degree">
+
+            <input type="text" id="cgpa" placeholder="CGPA">
+
+            <!-- Skills -->
+            <div class="section-title">
+                <i class="fa-solid fa-code"></i>
+                Skills
+            </div>
+
+            <textarea id="skills"
+                placeholder="Python, Flask, JavaScript, React"></textarea>
+
+            <!-- Projects -->
+            <div class="section-title">
+                <i class="fa-solid fa-diagram-project"></i>
+                Projects
+            </div>
+
+            <textarea id="projects"
+                placeholder="Describe your projects"></textarea>
+
+            <!-- Summary -->
+            <div class="section-title">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                AI Professional Summary
+            </div>
+
+            <textarea id="summary"
+                placeholder="AI summary will appear here"></textarea>
+
+            <!-- AI Button -->
+            <button class="ai-btn" onclick="generateSummary()">
+
+                <i class="fa-solid fa-bolt"></i>
+                Generate AI Summary
+
+            </button>
+
+            <!-- Template -->
+            <div class="section-title">
+                <i class="fa-solid fa-palette"></i>
+                Resume Template
+            </div>
+
+            <select id="templateSelect">
+
+                <option value="modern">
+                    Modern Dark
+                </option>
+
+                <option value="minimal">
+                    Minimal Light
+                </option>
+
+            </select>
+
+            <!-- Download -->
+            <button class="download-btn" onclick="downloadPDF()">
+
+                <i class="fa-solid fa-download"></i>
+                Download Resume
+
+            </button>
+
+        </div>
+
+        <!-- RIGHT PREVIEW -->
+        <div class="preview-section glass"
+            id="resume-preview">
+
+            <!-- Resume Content Wrapper -->
+            <div id="pdf-content">
+
+                <!-- Header -->
+                <div class="resume-header">
+
+                    <h1 id="preview-name">
+                        Your Name
+                    </h1>
+
+                    <div class="contact-info">
+
+                        <span id="preview-email">
+                            example@email.com
+                        </span>
+
+                        <span id="preview-phone">
+                            +91 9876543210
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- Summary -->
+                <div class="resume-block">
+
+                    <h3>Professional Summary</h3>
+
+                    <p id="preview-summary">
+                        Your AI generated summary will appear here.
+                    </p>
+
+                </div>
+
+                <!-- Education -->
+                <div class="resume-block">
+
+                    <h3>Education</h3>
+
+                    <p>
+
+                        <span id="preview-degree">
+                            Degree
+                        </span>
+
+                        -
+
+                        <span id="preview-college">
+                            College Name
+                        </span>
+
+                        (
+
+                        <span id="preview-cgpa">
+                            CGPA
+                        </span>
+
+                        )
+
+                    </p>
+
+                </div>
+
+                <!-- Skills -->
+                <div class="resume-block">
+
+                    <h3>Skills</h3>
+
+                    <p id="preview-skills">
+                        Skills appear here
+                    </p>
+
+                </div>
+
+                <!-- Projects -->
+                <div class="resume-block">
+
+                    <h3>Projects</h3>
+
+                    <p id="preview-projects">
+                        Projects appear here
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS ORDER IMPORTANT -->
+
+    <!-- Main JS -->
+    <script src="js/app.js"></script>
+
+    <script src="js/preview.js"></script>
+
+    <script src="js/template.js"></script>
+
+    <!-- html2pdf BEFORE pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- PDF JS -->
+    <script src="js/pdf.js"></script>
+
+    <!-- AI JS -->
+    <script src="js/ai.js"></script>
+
+</body>
+
+</html>
