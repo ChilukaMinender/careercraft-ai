@@ -2,7 +2,6 @@ async function generateSummary() {
 
     const skills = document.getElementById("skills").value;
     const projects = document.getElementById("projects").value;
-
     const summaryBox = document.getElementById("summary");
 
     if (skills.trim() === "") {
@@ -13,7 +12,6 @@ async function generateSummary() {
     summaryBox.value = "Generating AI summary...";
 
     try {
-
         const response = await fetch(
             "https://careercraft-ai-2.onrender.com/generate-summary",
             {
@@ -28,22 +26,19 @@ async function generateSummary() {
             }
         );
 
-        // check if response is OK
-        if (!response.ok) {
-            throw new Error("Server responded with error: " + response.status);
-        }
-
         const data = await response.json();
 
-        if (data && data.summary) {
+        if (response.ok && data?.summary) {
+
             summaryBox.value = data.summary;
 
             const preview = document.getElementById("preview-summary");
             if (preview) {
                 preview.textContent = data.summary;
             }
+
         } else {
-            summaryBox.value = "Failed to generate summary.";
+            summaryBox.value = data?.summary || "Failed to generate summary.";
         }
 
     } catch (error) {
